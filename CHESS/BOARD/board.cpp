@@ -1,6 +1,6 @@
-#include "board.h"
+#include "BOARD/board.h"
 #include <QDebug>
-#include "king.h"
+#include "FIGURES/king.h"
 Board::Board(QGraphicsScene *scene, QGraphicsRectItem *parent)
     :QGraphicsRectItem(parent), scene(scene)
 {

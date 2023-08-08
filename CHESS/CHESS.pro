@@ -9,21 +9,21 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    block.cpp \
-    board.cpp \
-    customscene.cpp \
-    customview.cpp \
-    figure.cpp \
-    king.cpp \
+    BOARD/block.cpp \
+    BOARD/board.cpp \
+    CORE/customscene.cpp \
+    CORE/customview.cpp \
+    FIGURES/figure.cpp \
+    FIGURES/king.cpp \
     main.cpp
 
 HEADERS += \
-	block.h \
-	board.h \
-	customscene.h \
-	customview.h \
-	figure.h \
-	king.h
+	BOARD/block.h \
+    BOARD/board.h \
+    CORE/customscene.h \
+    CORE/customview.h \
+    FIGURES/figure.h \
+    FIGURES/king.h \
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

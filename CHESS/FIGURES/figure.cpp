@@ -1,4 +1,4 @@
-#include "figure.h"
+#include "FIGURES/figure.h"
 
 Figure::Figure(QPoint pos, bool isWhite, QVector<QVector<Block *> > &vecOfBlocks, QGraphicsPixmapItem *parent)
     :QGraphicsPixmapItem(parent), vecOfBlocks(vecOfBlocks), isWhite(isWhite), currPos(pos), startPos(pos)
@@ -46,12 +46,18 @@ void Figure::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
     Q_UNUSED(event);
     this->setOffset(0, 0);
+    for(auto& elem : getValidNeighbourPositions()){
+        elem->setBrushColor(Qt::yellow);
+    }
 }
 
 void Figure::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 {
     Q_UNUSED(event);
     this->setOffset(0, 0);
+    for(auto& elem : getValidNeighbourPositions()){
+        elem->setBrushColor(elem->getDefBrush());
+    }
 }
 
 void Figure::mouseMoveEvent(QGraphicsSceneMouseEvent *event)

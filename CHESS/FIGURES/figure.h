@@ -6,7 +6,7 @@
 #include <QPainter>
 #include <QDebug>
 #include <QGraphicsSceneMouseEvent>
-#include "block.h"
+#include "BOARD/block.h"
 class Figure : public QObject, public QGraphicsPixmapItem
 {
     Q_OBJECT

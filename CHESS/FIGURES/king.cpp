@@ -1,4 +1,4 @@
-#include "king.h"
+#include "FIGURES/king.h"
 
 King::King(QPoint pos, bool isWhite, QVector<QVector<Block *> > &vecOfBlocks)
     :Figure(pos, isWhite, vecOfBlocks)

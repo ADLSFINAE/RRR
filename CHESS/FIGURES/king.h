@@ -1,7 +1,7 @@
 #ifndef KING_H
 #define KING_H
 #include <QPixmap>
-#include "figure.h"
+#include "FIGURES/figure.h"
 
 class King : public Figure
 {

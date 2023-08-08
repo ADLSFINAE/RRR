@@ -4,7 +4,7 @@
 #include <QGraphicsRectItem>
 #include <QVector>
 #include <QGraphicsScene>
-#include "block.h"
+#include "BOARD/block.h"
 
 class Board : public QObject, public QGraphicsRectItem
 {

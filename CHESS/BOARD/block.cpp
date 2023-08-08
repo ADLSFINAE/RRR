@@ -1,4 +1,4 @@
-#include "block.h"
+#include "BOARD/block.h"
 #include "qdebug.h"
 
 Block::Block(QPoint pos, QBrush brush, QGraphicsRectItem* parent)

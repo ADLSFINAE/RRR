@@ -1,4 +1,4 @@
-#include "customscene.h"
+#include "CORE/customscene.h"
 CustomScene::CustomScene(QGraphicsScene *parent)
     :QGraphicsScene(parent)
 {
