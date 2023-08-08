@@ -1,9 +1,13 @@
 #include "board.h"
 #include <QDebug>
+#include "king.h"
 Board::Board(QGraphicsScene *scene, QGraphicsRectItem *parent)
     :QGraphicsRectItem(parent), scene(scene)
 {
     buildingBoard();
+    King* king = new King(QPoint(5, 5), true, vecOfBlocks);
+    scene->addItem(king);
+    this->setCacheMode(QGraphicsItem::DeviceCoordinateCache);
 }
 
 void Board::buildingBoard()

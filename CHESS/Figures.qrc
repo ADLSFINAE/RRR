@@ -1,0 +1,16 @@
+<RCC>
+    <qresource prefix="/">
+        <file>chesscom/whiteFigures/wB.png</file>
+        <file>chesscom/whiteFigures/wK.png</file>
+        <file>chesscom/whiteFigures/wN.png</file>
+        <file>chesscom/whiteFigures/wP.png</file>
+        <file>chesscom/whiteFigures/wQ.png</file>
+        <file>chesscom/whiteFigures/wR.png</file>
+        <file>chesscom/blackFigures/bB.png</file>
+        <file>chesscom/blackFigures/bK.png</file>
+        <file>chesscom/blackFigures/bN.png</file>
+        <file>chesscom/blackFigures/bP.png</file>
+        <file>chesscom/blackFigures/bQ.png</file>
+        <file>chesscom/blackFigures/bR.png</file>
+    </qresource>
+</RCC>

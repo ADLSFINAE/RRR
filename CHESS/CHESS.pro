@@ -13,15 +13,22 @@ SOURCES += \
     board.cpp \
     customscene.cpp \
     customview.cpp \
+    figure.cpp \
+    king.cpp \
     main.cpp
 
 HEADERS += \
 	block.h \
 	board.h \
 	customscene.h \
-	customview.h
+	customview.h \
+	figure.h \
+	king.h
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+RESOURCES += \
+	Figures.qrc

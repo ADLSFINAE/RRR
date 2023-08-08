@@ -14,10 +14,10 @@ void CustomView::mousePressEvent(QMouseEvent *event)
 
 void CustomView::mouseReleaseEvent(QMouseEvent *event)
 {
-    QGraphicsView::mousePressEvent(event);
+    QGraphicsView::mouseReleaseEvent(event);
 }
 
 void CustomView::mouseMoveEvent(QMouseEvent *event)
 {
-    QGraphicsView::mousePressEvent(event);
+    QGraphicsView::mouseMoveEvent(event);
 }

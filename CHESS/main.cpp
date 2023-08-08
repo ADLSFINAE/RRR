@@ -1,7 +1,6 @@
 #include <QApplication>
 #include "customscene.h"
 #include "customview.h"
-#include "block.h"
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
