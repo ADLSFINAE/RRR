@@ -24,6 +24,7 @@ private:
     QPoint realCoords;
     QBrush defBrush;
     QBrush currBrush;
+    bool isHaveFigure = false;
 
 };
 

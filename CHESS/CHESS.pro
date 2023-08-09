@@ -13,8 +13,12 @@ SOURCES += \
     BOARD/board.cpp \
     CORE/customscene.cpp \
     CORE/customview.cpp \
+    FIGURES/elephant.cpp \
     FIGURES/figure.cpp \
+    FIGURES/horse.cpp \
     FIGURES/king.cpp \
+    FIGURES/pawn.cpp \
+    FIGURES/rook.cpp \
     main.cpp
 
 HEADERS += \
@@ -22,8 +26,13 @@ HEADERS += \
     BOARD/board.h \
     CORE/customscene.h \
     CORE/customview.h \
+	FIGURES/elephant.h \
     FIGURES/figure.h \
+	FIGURES/horse.h \
     FIGURES/king.h \
+	FIGURES/pawn.h \
+	FIGURES/rook.h \
+	STATEMENTS.h
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

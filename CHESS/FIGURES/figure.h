@@ -15,7 +15,7 @@ public:
 public:
     virtual QVector<Block*> getValidNeighbourPositions() = 0;
 public:
-    QRectF boundingRect()const override;
+    //QRectF boundingRect()const override;
 
     void setPosition(QPoint pos);
     QPoint getPosition() const;

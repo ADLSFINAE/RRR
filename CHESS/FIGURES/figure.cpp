@@ -8,12 +8,12 @@ Figure::Figure(QPoint pos, bool isWhite, QVector<QVector<Block *> > &vecOfBlocks
     this->setCacheMode(QGraphicsItem::DeviceCoordinateCache);
 }
 
-QRectF Figure::boundingRect() const
+/*QRectF Figure::boundingRect() const
 {
     if(this->offset() == QPointF(-40, -40))
         return QRectF(-40, -40, 80, 80);
     return QRectF(0, 0, 80, 80);
-}
+}*/
 
 void Figure::setPosition(QPoint pos)
 {
