@@ -18,6 +18,7 @@ SOURCES += \
     FIGURES/horse.cpp \
     FIGURES/king.cpp \
     FIGURES/pawn.cpp \
+    FIGURES/queen.cpp \
     FIGURES/rook.cpp \
     main.cpp
 
@@ -31,6 +32,7 @@ HEADERS += \
 	FIGURES/horse.h \
     FIGURES/king.h \
 	FIGURES/pawn.h \
+	FIGURES/queen.h \
 	FIGURES/rook.h \
 	STATEMENTS.h
 

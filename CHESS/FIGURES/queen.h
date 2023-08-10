@@ -1,15 +1,15 @@
-#ifndef KING_H
-#define KING_H
+#ifndef QUEEN_H
+#define QUEEN_H
 #include "FIGURES/figure.h"
 
-class King : public Figure
+class Queen : public Figure
 {
     Q_OBJECT
 public:
-    King(QPoint pos, bool isWhite, QVector<QVector<Block *> > &vecOfBlocks);
+    Queen(QPoint pos, bool isWhite, QVector<QVector<Block *> > &vecOfBlocks);
     QVector<Block*> getValidNeighbourPositions() override;
 protected:
     void mousePressEvent(QGraphicsSceneMouseEvent* event) override;
 };
 
-#endif // KING_H
+#endif // QUEEN_H

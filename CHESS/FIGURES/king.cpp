@@ -4,9 +4,9 @@ King::King(QPoint pos, bool isWhite, QVector<QVector<Block *> > &vecOfBlocks)
     :Figure(pos, isWhite, vecOfBlocks)
 {
     if(isWhite)
-        this->setPixmap(QPixmap(":/chesscom/whiteFigures/wK.png"));
+        this->setPixmap(QPixmap(pngWhiteKing));
     else
-        this->setPixmap(QPixmap(":/chesscom/blackFigures/bK.png"));
+        this->setPixmap(QPixmap(pngBlackKing));
 }
 
 QVector<Block *> King::getValidNeighbourPositions()
@@ -25,14 +25,4 @@ QVector<Block *> King::getValidNeighbourPositions()
 void King::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
     Figure::mousePressEvent(event);
-}
-
-void King::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
-{
-    Figure::mouseReleaseEvent(event);
-}
-
-void King::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
-{
-    Figure::mouseMoveEvent(event);
 }

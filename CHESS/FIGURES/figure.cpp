@@ -6,14 +6,8 @@ Figure::Figure(QPoint pos, bool isWhite, QVector<QVector<Block *> > &vecOfBlocks
     this->setOffset(0, 0);
     this->setPosition(currPos);
     this->setCacheMode(QGraphicsItem::DeviceCoordinateCache);
+    isClicked = false;
 }
-
-/*QRectF Figure::boundingRect() const
-{
-    if(this->offset() == QPointF(-40, -40))
-        return QRectF(-40, -40, 80, 80);
-    return QRectF(0, 0, 80, 80);
-}*/
 
 void Figure::setPosition(QPoint pos)
 {
@@ -45,23 +39,16 @@ bool Figure::checkOnOut(int rows, int cols) const
 void Figure::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
     Q_UNUSED(event);
-    this->setOffset(0, 0);
-    for(auto& elem : getValidNeighbourPositions()){
-        elem->setBrushColor(Qt::yellow);
+    if(!isClicked){
+        for(auto& elem : getValidNeighbourPositions()){
+            elem->setBrushColor(Qt::yellow);
+        }
+        isClicked = true;
     }
-}
-
-void Figure::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
-{
-    Q_UNUSED(event);
-    this->setOffset(0, 0);
-    for(auto& elem : getValidNeighbourPositions()){
-        elem->setBrushColor(elem->getDefBrush());
+    else{
+        for(auto& elem : getValidNeighbourPositions()){
+            elem->setBrushColor(elem->getDefBrush());
+        }
+        isClicked = false;
     }
-}
-
-void Figure::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
-{
-    this->setOffset(-40, -40);
-    this->setPos(mapToScene(event->pos()));
 }

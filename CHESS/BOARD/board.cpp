@@ -1,12 +1,19 @@
 #include "BOARD/board.h"
-#include <QDebug>
+#include "FIGURES/elephant.h"
+#include "FIGURES/horse.h"
 #include "FIGURES/king.h"
+#include "FIGURES/pawn.h"
+#include "FIGURES/queen.h"
+#include "FIGURES/rook.h"
 Board::Board(QGraphicsScene *scene, QGraphicsRectItem *parent)
     :QGraphicsRectItem(parent), scene(scene)
 {
-    buildingBoard();
-    King* king = new King(QPoint(5, 5), true, vecOfBlocks);
-    scene->addItem(king);
+    this->buildingBoard();
+    this->figuresInitialization(true);
+    this->figuresInitialization(false);
+    allFigures += whiteFigures;
+    allFigures += blackFigures;
+    qDebug()<<whiteFigures.size()<<blackFigures.size()<<allFigures.size();
     this->setCacheMode(QGraphicsItem::DeviceCoordinateCache);
 }
 
@@ -23,4 +30,35 @@ void Board::buildingBoard()
                 vecOfBlocks[i][j] = new Block(QPoint(i, j), Qt::black, this);
         }
     }
+}
+
+void Board::figuresInitialization(bool isWhite)
+{
+    int cols, pawnCols;
+    isWhite ? ({cols = 7; pawnCols = 6;}) : ({cols = 0; pawnCols = 1;});
+
+    QVector<Figure*>figuresTemp = {//ЗАПОЛНЕНИЕ ВРЕМЕННОГО
+                                   new King(QPoint(4, cols), isWhite, vecOfBlocks),
+                                   new Queen(QPoint(3, cols), isWhite, vecOfBlocks),
+                                   new Horse(QPoint(1, cols), isWhite, vecOfBlocks),
+                                   new Horse(QPoint(6, cols), isWhite, vecOfBlocks),
+                                   new Elephant(QPoint(2, 3), isWhite, vecOfBlocks),
+                                   new Elephant(QPoint(5, cols), isWhite, vecOfBlocks),
+                                   new Rook(QPoint(0, cols), isWhite, vecOfBlocks),
+                                   new Rook(QPoint(7, cols), isWhite, vecOfBlocks),
+                                  };
+
+    for(int rows = 0; rows < realX; rows++)
+        figuresTemp.push_back(new Pawn(QPoint(rows, pawnCols), isWhite, vecOfBlocks));
+
+    for (auto& figure : figuresTemp)
+        scene->addItem(figure);
+
+    for(auto& elem: figuresTemp){
+        if(isWhite)
+            whiteFigures.push_back(elem);
+        else
+            blackFigures.push_back(elem);
+    }
+
 }
