@@ -19,8 +19,6 @@ QVector<Block *> Elephant::getValidNeighbourPositions()
             positions.push_back(vecOfBlocks[getPosition().x() + i][getPosition().y() - i]);
     }
 
-    qDebug()<<positions.size();
-
     return positions;
 }
 

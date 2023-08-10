@@ -13,6 +13,9 @@ Board::Board(QGraphicsScene *scene, QGraphicsRectItem *parent)
     this->figuresInitialization(false);
     allFigures += whiteFigures;
     allFigures += blackFigures;
+    for(auto& figure : allFigures){
+        figure->setFiguresVec(allFigures);
+    }
     qDebug()<<whiteFigures.size()<<blackFigures.size()<<allFigures.size();
     this->setCacheMode(QGraphicsItem::DeviceCoordinateCache);
 }
@@ -42,7 +45,7 @@ void Board::figuresInitialization(bool isWhite)
                                    new Queen(QPoint(3, cols), isWhite, vecOfBlocks),
                                    new Horse(QPoint(1, cols), isWhite, vecOfBlocks),
                                    new Horse(QPoint(6, cols), isWhite, vecOfBlocks),
-                                   new Elephant(QPoint(2, 3), isWhite, vecOfBlocks),
+                                   new Elephant(QPoint(2, cols), isWhite, vecOfBlocks),
                                    new Elephant(QPoint(5, cols), isWhite, vecOfBlocks),
                                    new Rook(QPoint(0, cols), isWhite, vecOfBlocks),
                                    new Rook(QPoint(7, cols), isWhite, vecOfBlocks),

@@ -12,7 +12,13 @@ Rook::Rook(QPoint pos, bool isWhite, QVector<QVector<Block *> > &vecOfBlocks)
 QVector<Block *> Rook::getValidNeighbourPositions()
 {
     QVector<Block*> positions;
+    for (int i = -this->getPosition().x(); i < 8 - this->getPosition().x(); i++){
+        positions.push_back(vecOfBlocks[getPosition().x() + i][getPosition().y()]);
+    }
 
+    for (int j = -this->getPosition().y(); j < 8 - this->getPosition().y(); j++){
+        positions.push_back(vecOfBlocks[getPosition().x()][getPosition().y() + j]);
+    }
     return positions;
 }
 

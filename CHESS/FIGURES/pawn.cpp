@@ -12,7 +12,14 @@ Pawn::Pawn(QPoint pos, bool isWhite, QVector<QVector<Block *> > &vecOfBlocks)
 QVector<Block *> Pawn::getValidNeighbourPositions()
 {
     QVector<Block*> positions;
-
+    if(isWhite && this->getPosition().y() == 6){
+        positions.push_back(vecOfBlocks[this->getPosition().x()][this->getPosition().y() - 1]);
+        positions.push_back(vecOfBlocks[this->getPosition().x()][this->getPosition().y() - 2]);
+    }
+    if(!isWhite && this->getPosition().y() == 1){
+        positions.push_back(vecOfBlocks[this->getPosition().x()][this->getPosition().y() + 1]);
+        positions.push_back(vecOfBlocks[this->getPosition().x()][this->getPosition().y() + 2]);
+    }
     return positions;
 }
 

@@ -8,6 +8,8 @@ Block::Block(QPoint pos, QBrush brush, QGraphicsRectItem* parent)
     this->setBrush(defBrush);
     this->setPen(Qt::SolidLine);
     this->setCacheMode(QGraphicsItem::DeviceCoordinateCache);
+    this->isHaveFigure = false;
+    this->isWhite = false;
 }
 
 void Block::setBrushColor(QBrush brush)
@@ -29,6 +31,22 @@ QBrush Block::getDefBrush() const
 QBrush Block::getCurrentBrush() const
 {
     return currBrush;
+}
+
+void Block::figureAboveBlockADD(bool isWhite)
+{
+    this->isHaveFigure = true;
+    this->isWhite = isWhite;
+}
+
+void Block::figureAboveBlockDELETE()
+{
+    this->isHaveFigure = false;
+}
+
+QPair<bool, bool> Block::getHavingFigure()
+{
+    return {isHaveFigure, isWhite};
 }
 
 void Block::mousePressEvent(QGraphicsSceneMouseEvent *event)

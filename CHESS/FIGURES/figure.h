@@ -21,10 +21,13 @@ public:
     QPoint getPosition() const;
 
     bool checkOnOut(int rows, int cols) const;
+
+    void setFiguresVec(QVector<Figure*> vecOfFigures);
 protected:
     void mousePressEvent(QGraphicsSceneMouseEvent* event) override;
 public:
     QVector<QVector<Block*>> vecOfBlocks;
+    QVector<Figure*> vecOfFigures;
     bool isWhite;
     QPoint currPos;
     QPoint startPos;

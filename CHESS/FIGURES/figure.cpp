@@ -6,13 +6,16 @@ Figure::Figure(QPoint pos, bool isWhite, QVector<QVector<Block *> > &vecOfBlocks
     this->setOffset(0, 0);
     this->setPosition(currPos);
     this->setCacheMode(QGraphicsItem::DeviceCoordinateCache);
+    vecOfBlocks[this->getPosition().x()][this->getPosition().y()]->figureAboveBlockADD(this->isWhite);
     isClicked = false;
 }
 
 void Figure::setPosition(QPoint pos)
 {
+    vecOfBlocks[this->getPosition().x()][this->getPosition().y()]->figureAboveBlockDELETE();
     this->setPos(pos.x() * 80, pos.y() * 80);
     this->currPos = pos;
+    vecOfBlocks[this->getPosition().x()][this->getPosition().y()]->figureAboveBlockADD(this->isWhite);
 }
 
 QPoint Figure::getPosition() const
@@ -36,19 +39,38 @@ bool Figure::checkOnOut(int rows, int cols) const
         return false;
 }
 
+void Figure::setFiguresVec(QVector<Figure *> vecOfFigures)
+{
+    this->vecOfFigures += vecOfFigures;
+}
+
 void Figure::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
     Q_UNUSED(event);
     if(!isClicked){
         for(auto& elem : getValidNeighbourPositions()){
-            elem->setBrushColor(Qt::yellow);
+                elem->setBrushColor(Qt::yellow);
+            if(elem->getHavingFigure().first && elem->getHavingFigure().second == this->isWhite)
+                elem->setBrushColor(Qt::green);
+            if(elem->getHavingFigure().first && elem->getHavingFigure().second != this->isWhite)
+                elem->setBrushColor(Qt::blue);
         }
         isClicked = true;
+        for(auto& elem : vecOfFigures){
+            if(elem != this){
+                elem->setEnabled(false);
+            }
+        }
     }
     else{
         for(auto& elem : getValidNeighbourPositions()){
             elem->setBrushColor(elem->getDefBrush());
         }
         isClicked = false;
+        for(auto& elem : vecOfFigures){
+            if(elem != this){
+                elem->setEnabled(true);
+            }
+        }
     }
 }

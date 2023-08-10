@@ -5,6 +5,7 @@
 #include <QPen>
 #include <QObject>
 #include <QBrush>
+#include <QPair>
 
 class Block : public QObject, public QGraphicsRectItem
 {
@@ -18,14 +19,20 @@ public:
     QPoint getRealCoords() const; //получить координаты на доске
     QBrush getDefBrush() const; // получить изначальный цвет блока
     QBrush getCurrentBrush() const;// получить текущий цвет блока
+
+    //при смене позиции фигуры
+    void figureAboveBlockADD(bool isHaveFigure);//заполняем информацию о наличии фигуры
+    void figureAboveBlockDELETE();//очищаем информацию о наличии фигуры
+
+    QPair<bool, bool> getHavingFigure();
 protected:
     void mousePressEvent(QGraphicsSceneMouseEvent* event) override;
 private:
     QPoint realCoords;
     QBrush defBrush;
     QBrush currBrush;
-    bool isHaveFigure = false;
-
+    bool isHaveFigure;
+    bool isWhite;
 };
 
 #endif // BLOCK_H
