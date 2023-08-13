@@ -20,17 +20,28 @@ QVector<Block *> Queen::getValidNeighbourPositions()
     }
 
     for (int i = -this->getPosition().x(); i < 8 - this->getPosition().x(); i++){
-        positions.push_back(vecOfBlocks[getPosition().x() + i][getPosition().y()]);
+        if(i != 0)
+            positions.push_back(vecOfBlocks[getPosition().x() + i][getPosition().y()]);
     }
 
     for (int j = -this->getPosition().y(); j < 8 - this->getPosition().y(); j++){
-        positions.push_back(vecOfBlocks[getPosition().x()][getPosition().y() + j]);
+        if(j != 0)
+            positions.push_back(vecOfBlocks[getPosition().x()][getPosition().y() + j]);
     }
-
     return positions;
 }
 
 void Queen::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
     Figure::mousePressEvent(event);
+}
+
+void Queen::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
+{
+    Figure::mouseReleaseEvent(event);
+}
+
+void Queen::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
+{
+    Figure::mouseMoveEvent(event);
 }

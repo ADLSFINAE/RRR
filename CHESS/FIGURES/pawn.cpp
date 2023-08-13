@@ -16,14 +16,40 @@ QVector<Block *> Pawn::getValidNeighbourPositions()
         positions.push_back(vecOfBlocks[this->getPosition().x()][this->getPosition().y() - 1]);
         positions.push_back(vecOfBlocks[this->getPosition().x()][this->getPosition().y() - 2]);
     }
-    if(!isWhite && this->getPosition().y() == 1){
+    else if(!isWhite && this->getPosition().y() == 1){
         positions.push_back(vecOfBlocks[this->getPosition().x()][this->getPosition().y() + 1]);
         positions.push_back(vecOfBlocks[this->getPosition().x()][this->getPosition().y() + 2]);
+    }
+    else{
+      if(isWhite){
+        positions.push_back(vecOfBlocks[this->getPosition().x()][this->getPosition().y() - 1]);
+      }
+      else{
+        positions.push_back(vecOfBlocks[this->getPosition().x()][this->getPosition().y() + 1]);
+      }
     }
     return positions;
 }
 
 void Pawn::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
-    Figure::mousePressEvent(event);
+    toClean.clear();
+    toClean += getValidNeighbourPositions();
+    for(auto& elem : toClean){
+        elem->setBrushColor(Qt::yellow);
+        if(elem->getHavingFigure().first && elem->getHavingFigure().second == this->isWhite)
+            elem->setBrushColor(Qt::green);
+        if(elem->getHavingFigure().first && elem->getHavingFigure().second != this->isWhite)
+            elem->setBrushColor(elem->getDefBrush());
+    }
+}
+
+void Pawn::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
+{
+    Figure::mouseReleaseEvent(event);
+}
+
+void Pawn::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
+{
+    Figure::mouseMoveEvent(event);
 }

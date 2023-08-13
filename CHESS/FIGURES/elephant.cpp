@@ -27,3 +27,13 @@ void Elephant::mousePressEvent(QGraphicsSceneMouseEvent *event)
     Figure::mousePressEvent(event);
 }
 
+void Elephant::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
+{
+    Figure::mouseReleaseEvent(event);
+}
+
+void Elephant::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
+{
+    Figure::mouseMoveEvent(event);
+}
+

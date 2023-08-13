@@ -10,6 +10,8 @@ public:
     QVector<Block*> getValidNeighbourPositions() override;
 protected:
     void mousePressEvent(QGraphicsSceneMouseEvent* event) override;
+    void mouseReleaseEvent(QGraphicsSceneMouseEvent* event) override;
+    void mouseMoveEvent(QGraphicsSceneMouseEvent* event) override;
 };
 
 #endif // HORSE_H

@@ -6,6 +6,7 @@
 #include <QPainter>
 #include <QDebug>
 #include <QGraphicsSceneMouseEvent>
+#include <QtMath>
 #include "BOARD/block.h"
 #include "STATEMENTS.h"
 using namespace GlobVal;
@@ -23,16 +24,21 @@ public:
     bool checkOnOut(int rows, int cols) const;
 
     void setFiguresVec(QVector<Figure*> vecOfFigures);
+
+public:
+    // Я И КОЛБАСНЫЕ ОБРЕЗКИ
+
 protected:
     void mousePressEvent(QGraphicsSceneMouseEvent* event) override;
+    void mouseReleaseEvent(QGraphicsSceneMouseEvent* event) override;
+    void mouseMoveEvent(QGraphicsSceneMouseEvent* event) override;
 public:
     QVector<QVector<Block*>> vecOfBlocks;
     QVector<Figure*> vecOfFigures;
+    QVector<Block*> toClean;
     bool isWhite;
     QPoint currPos;
     QPoint startPos;
-
-    bool isClicked;
 };
 
 #endif // FIGURE_H

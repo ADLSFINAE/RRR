@@ -7,7 +7,6 @@ Figure::Figure(QPoint pos, bool isWhite, QVector<QVector<Block *> > &vecOfBlocks
     this->setPosition(currPos);
     this->setCacheMode(QGraphicsItem::DeviceCoordinateCache);
     vecOfBlocks[this->getPosition().x()][this->getPosition().y()]->figureAboveBlockADD(this->isWhite);
-    isClicked = false;
 }
 
 void Figure::setPosition(QPoint pos)
@@ -46,31 +45,60 @@ void Figure::setFiguresVec(QVector<Figure *> vecOfFigures)
 
 void Figure::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
+    toClean.clear();
+    this->setOffset(0, 0);
     Q_UNUSED(event);
-    if(!isClicked){
-        for(auto& elem : getValidNeighbourPositions()){
-                elem->setBrushColor(Qt::yellow);
-            if(elem->getHavingFigure().first && elem->getHavingFigure().second == this->isWhite)
-                elem->setBrushColor(Qt::green);
-            if(elem->getHavingFigure().first && elem->getHavingFigure().second != this->isWhite)
-                elem->setBrushColor(Qt::blue);
-        }
-        isClicked = true;
-        for(auto& elem : vecOfFigures){
-            if(elem != this){
-                elem->setEnabled(false);
+    toClean += getValidNeighbourPositions();
+    for(auto& elem : toClean){
+        elem->setBrushColor(Qt::yellow);
+        if(elem->getHavingFigure().first && elem->getHavingFigure().second == this->isWhite)
+            elem->setBrushColor(Qt::green);
+        if(elem->getHavingFigure().first && elem->getHavingFigure().second != this->isWhite)
+            elem->setBrushColor(Qt::blue);
+    }
+}
+
+void Figure::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
+{
+#define CURR_BRUSH tempBlock->getCurrentBrush()
+#define DEF_BRUSH tempBlock->getDefBrush()
+#define TEAMMATE_BRUSH Qt::green
+    this->setOffset(0, 0);
+
+    QPair<Block*, double> toSetPos;
+    toSetPos.first = vecOfBlocks[getPosition().x()][getPosition().y()];
+    toSetPos.second = INT_MAX;
+
+    for(auto& block : this->collidingItems()){
+        Block* tempBlock = dynamic_cast<Block*>(block);
+        if(tempBlock != nullptr && CURR_BRUSH != TEAMMATE_BRUSH){
+            double calculateDistance = qSqrt(qPow(((int)mapToScene(event->pos()).x() - (int)tempBlock->pos().x() + 40), 2)
+                                             + qPow(((int)mapToScene(event->pos()).x() - (int)tempBlock->pos().y() + 40), 2));
+            if(toSetPos.second >= calculateDistance){
+                toSetPos.first = tempBlock;
+                toSetPos.second = calculateDistance;
             }
         }
     }
-    else{
-        for(auto& elem : getValidNeighbourPositions()){
-            elem->setBrushColor(elem->getDefBrush());
-        }
-        isClicked = false;
-        for(auto& elem : vecOfFigures){
-            if(elem != this){
-                elem->setEnabled(true);
+    for(auto & elem : getValidNeighbourPositions()){
+        if(elem == toSetPos.first){
+            this->setPosition(toSetPos.first->getRealCoords());
+            for(auto& block : toClean){
+                block->setBrushColor(block->getDefBrush());
             }
+            break;
         }
     }
+    this->setPosition(getPosition());
+
+    for(auto& block : toClean){
+        block->setBrushColor(block->getDefBrush());
+    }
+
+}
+
+void Figure::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
+{
+    this->setOffset(-40, -40);
+    this->setPos(mapToScene(event->pos()));
 }

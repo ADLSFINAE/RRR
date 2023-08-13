@@ -26,3 +26,13 @@ void King::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
     Figure::mousePressEvent(event);
 }
+
+void King::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
+{
+    Figure::mouseReleaseEvent(event);
+}
+
+void King::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
+{
+    Figure::mouseMoveEvent(event);
+}

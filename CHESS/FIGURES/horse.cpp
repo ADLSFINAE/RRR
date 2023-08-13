@@ -18,7 +18,6 @@ QVector<Block *> Horse::getValidNeighbourPositions()
     for (int i = 0; i < 8; i++) {
         int newX = this->getPosition().x() + dx[i];
         int newY = this->getPosition().y() + dy[i];
-        qDebug()<<newX<<newY;
         if(checkOnOut(dx[i], dy[i]))
             positions.push_back(vecOfBlocks[newX][newY]);
     }
@@ -28,4 +27,14 @@ QVector<Block *> Horse::getValidNeighbourPositions()
 void Horse::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
     Figure::mousePressEvent(event);
+}
+
+void Horse::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
+{
+    Figure::mouseReleaseEvent(event);
+}
+
+void Horse::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
+{
+    Figure::mouseMoveEvent(event);
 }
