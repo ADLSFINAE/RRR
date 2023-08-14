@@ -70,9 +70,21 @@ bool Figure::checkOnOut(int rows, int cols) const
         return false;
 }
 
-void Figure::setFiguresVec(QVector<Figure *> vecOfFigures)
+void Figure::setWhiteFiguresVec(QVector<Figure *> vecOfFigures)
 {
-    this->vecOfFigures += vecOfFigures;
+    vecWhiteFigures.clear();
+    this->vecWhiteFigures = vecOfFigures;
+}
+
+void Figure::setBlackFiguresVec(QVector<Figure *> vecOfFigures)
+{
+    vecBlackFigures.clear();
+    this->vecBlackFigures = vecOfFigures;
+}
+
+void Figure::addToPawnSoFunny(Block* fig)
+{
+    pawnSoFunny.push_back(fig);
 }
 
 void Figure::mousePressEvent(QGraphicsSceneMouseEvent *event)

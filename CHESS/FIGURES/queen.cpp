@@ -45,27 +45,41 @@ void Queen::getKnowledge(QVector<Block *>& blockVec)
     QVector<Block*>down_left;
     QVector<Block*>down_right;
 
-    int current_figure_x = this->getPosition().x();
-    int current_figure_y = this->getPosition().y();
     for(auto& elem : blockVec){
 #define ELEM_X elem->getRealCoords().x()
 #define ELEM_Y elem->getRealCoords().y()
-        if(ELEM_X == getPosition().x() && ELEM_Y >= getPosition().y())
+        if(ELEM_X == getPosition().x() && ELEM_Y >= getPosition().y()){
             forward.push_back(elem);
-        if(ELEM_X == getPosition().x() && ELEM_Y <= getPosition().y())
+            continue;
+        }
+        if(ELEM_X == getPosition().x() && ELEM_Y <= getPosition().y()){
             back.push_back(elem);
-        if(ELEM_X < getPosition().x() && ELEM_Y == getPosition().y())
+            continue;
+        }
+        if(ELEM_X < getPosition().x() && ELEM_Y == getPosition().y()){
             left.push_back(elem);
-        if(ELEM_X > getPosition().x() && ELEM_Y == getPosition().y())
+            continue;
+        }
+        if(ELEM_X > getPosition().x() && ELEM_Y == getPosition().y()){
             right.push_back(elem);
-        if(ELEM_X < getPosition().x() && ELEM_Y < getPosition().y())
+            continue;
+        }
+        if(ELEM_X < getPosition().x() && ELEM_Y < getPosition().y()){
             upper_left.push_back(elem);
-        if(ELEM_X > getPosition().x() && ELEM_Y < getPosition().y())
+            continue;
+        }
+        if(ELEM_X > getPosition().x() && ELEM_Y < getPosition().y()){
             upper_right.push_back(elem);
-        if(ELEM_X < getPosition().x() && ELEM_Y > getPosition().y())
+            continue;
+        }
+        if(ELEM_X < getPosition().x() && ELEM_Y > getPosition().y()){
             down_left.push_back(elem);
-        if(ELEM_X > getPosition().x() && ELEM_Y > getPosition().y())
+            continue;
+        }
+        if(ELEM_X > getPosition().x() && ELEM_Y > getPosition().y()){
             down_right.push_back(elem);
+            continue;
+        }
     }
 
 

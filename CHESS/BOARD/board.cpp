@@ -14,7 +14,8 @@ Board::Board(QGraphicsScene *scene, QGraphicsRectItem *parent)
     allFigures += whiteFigures;
     allFigures += blackFigures;
     for(auto& figure : allFigures){
-        figure->setFiguresVec(allFigures);
+        figure->setWhiteFiguresVec(whiteFigures);
+        figure->setBlackFiguresVec(blackFigures);
     }
     qDebug()<<whiteFigures.size()<<blackFigures.size()<<allFigures.size();
     this->setCacheMode(QGraphicsItem::DeviceCoordinateCache);

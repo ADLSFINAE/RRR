@@ -31,7 +31,10 @@ public:
 
     bool checkOnOut(int rows, int cols) const;
 
-    void setFiguresVec(QVector<Figure*> vecOfFigures);
+    void setWhiteFiguresVec(QVector<Figure*> vecOfFigures);
+    void setBlackFiguresVec(QVector<Figure*> vecOfFigures);
+
+    void addToPawnSoFunny(Block* fig);
 public:
     // Я И КОЛБАСНЫЕ ОБРЕЗКИ
 
@@ -41,8 +44,10 @@ protected:
     void mouseMoveEvent(QGraphicsSceneMouseEvent* event) override;
 public:
     QVector<QVector<Block*>> vecOfBlocks;
-    QVector<Figure*> vecOfFigures;
+    QVector<Figure*> vecWhiteFigures;
+    QVector<Figure*> vecBlackFigures;
     QVector<Block*> toClean;
+    QVector<Block*> pawnSoFunny;
     bool isWhite;
     QPoint currPos;
     QPoint startPos;
