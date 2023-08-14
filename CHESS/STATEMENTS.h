@@ -4,6 +4,7 @@
 #include <QRectF>
 #include <QSize>
 #include <QVector>
+#include "BOARD/block.h"
 
 namespace GlobVal{
 const static int pixelX = 80;

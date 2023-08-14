@@ -18,8 +18,48 @@ QVector<Block *> Elephant::getValidNeighbourPositions()
         if(checkOnOut(i, -i))
             positions.push_back(vecOfBlocks[getPosition().x() + i][getPosition().y() - i]);
     }
-
+    getKnowledge(positions);
     return positions;
+}
+
+void Elephant::getKnowledge(QVector<Block *>& blockVec)
+{
+    QVector<Block*>upper_left;
+    QVector<Block*>upper_right;
+    QVector<Block*>down_left;
+    QVector<Block*>down_right;
+
+    int current_figure_x = this->getPosition().x();
+    int current_figure_y = this->getPosition().y();
+    for(auto& elem : blockVec){
+#define ELEM_X elem->getRealCoords().x()
+#define ELEM_Y elem->getRealCoords().y()
+        if(ELEM_X <= current_figure_x && ELEM_Y <= current_figure_y)
+            upper_left.push_back(elem);
+        if(ELEM_X >= current_figure_x && ELEM_Y <= current_figure_y)
+            upper_right.push_back(elem);
+        if(ELEM_X <= current_figure_x && ELEM_Y >= current_figure_y)
+            down_left.push_back(elem);
+        if(ELEM_X >= current_figure_x && ELEM_Y >= current_figure_y)
+            down_right.push_back(elem);
+    }
+
+    bubbleSortMinToMaxX(upper_left);
+    bubbleSortMaxToMinX(upper_right);
+    bubbleSortMinToMaxX(down_left);
+    bubbleSortMaxToMinX(down_right);
+
+    removingUnnecessaryBlocks(upper_left);
+    removingUnnecessaryBlocks(upper_right);
+    removingUnnecessaryBlocks(down_left);
+    removingUnnecessaryBlocks(down_right);
+
+    blockVec.clear();
+    blockVec += upper_left;
+    blockVec += upper_right;
+    blockVec += down_left;
+    blockVec += down_right;
+
 }
 
 void Elephant::mousePressEvent(QGraphicsSceneMouseEvent *event)

@@ -17,6 +17,14 @@ public:
     Figure(QPoint pos, bool isWhite, QVector<QVector<Block*>>& vecOfBlocks, QGraphicsPixmapItem* parent = nullptr);
 public:
     virtual QVector<Block*> getValidNeighbourPositions() = 0;
+    virtual void getKnowledge(QVector<Block*>& blockVec) = 0;
+
+    void bubbleSortMinToMaxX(QVector<Block*>& vec);
+    void bubbleSortMaxToMinX(QVector<Block*>& vec);
+    void bubbleSortMinToMaxY(QVector<Block*>& vec);
+    void bubbleSortMaxToMinY(QVector<Block*>& vec);
+
+    void removingUnnecessaryBlocks(QVector<Block*>& vec);
 public:
     void setPosition(QPoint pos);
     QPoint getPosition() const;
@@ -24,7 +32,6 @@ public:
     bool checkOnOut(int rows, int cols) const;
 
     void setFiguresVec(QVector<Figure*> vecOfFigures);
-
 public:
     // Я И КОЛБАСНЫЕ ОБРЕЗКИ
 

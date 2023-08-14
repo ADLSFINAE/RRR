@@ -9,6 +9,38 @@ Figure::Figure(QPoint pos, bool isWhite, QVector<QVector<Block *> > &vecOfBlocks
     vecOfBlocks[this->getPosition().x()][this->getPosition().y()]->figureAboveBlockADD(this->isWhite);
 }
 
+void Figure::bubbleSortMinToMaxX(QVector<Block *>& vec)
+{
+    std::sort(vec.begin(), vec.end(),
+              [&] (Block* block1, Block* block2) {return block1->getRealCoords().x() > block2->getRealCoords().x();});
+}
+
+void Figure::bubbleSortMaxToMinX(QVector<Block *>& vec)
+{
+    std::sort(vec.begin(), vec.end(),
+              [&] (Block* block1, Block* block2) {return block1->getRealCoords().x() < block2->getRealCoords().x();});
+}
+
+void Figure::bubbleSortMinToMaxY(QVector<Block *>& vec)
+{
+    std::sort(vec.begin(), vec.end(),
+              [&] (Block* block1, Block* block2) {return block1->getRealCoords().y() > block2->getRealCoords().y();});
+}
+
+void Figure::bubbleSortMaxToMinY(QVector<Block *>& vec)
+{
+    std::sort(vec.begin(), vec.end(),
+              [&] (Block* block1, Block* block2) {return block1->getRealCoords().y() < block2->getRealCoords().y();});
+}
+
+void Figure::removingUnnecessaryBlocks(QVector<Block *> &vec)
+{
+    for(int i = 0; i < vec.size(); i++){
+        if(vec[i]->getHavingFigure().first == true)
+            vec.erase(vec.begin() + i + 1, vec.end());
+    }
+}
+
 void Figure::setPosition(QPoint pos)
 {
     vecOfBlocks[this->getPosition().x()][this->getPosition().y()]->figureAboveBlockDELETE();

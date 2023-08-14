@@ -31,6 +31,11 @@ QVector<Block *> Pawn::getValidNeighbourPositions()
     return positions;
 }
 
+void Pawn::getKnowledge(QVector<Block *>& blockVec)
+{
+
+}
+
 void Pawn::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
     toClean.clear();

@@ -22,6 +22,11 @@ QVector<Block *> King::getValidNeighbourPositions()
     return positions;
 }
 
+void King::getKnowledge(QVector<Block *>& blockVec)
+{
+
+}
+
 void King::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
     Figure::mousePressEvent(event);

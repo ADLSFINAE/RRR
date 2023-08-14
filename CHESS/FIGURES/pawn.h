@@ -8,6 +8,7 @@ class Pawn : public Figure
 public:
     Pawn(QPoint pos, bool isWhite, QVector<QVector<Block *> > &vecOfBlocks);
     QVector<Block*> getValidNeighbourPositions() override;
+    void getKnowledge(QVector<Block*>& blockVec) override;
 protected:
     void mousePressEvent(QGraphicsSceneMouseEvent* event) override;
     void mouseReleaseEvent(QGraphicsSceneMouseEvent* event) override;
