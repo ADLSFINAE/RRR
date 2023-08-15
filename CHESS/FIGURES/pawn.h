@@ -7,8 +7,10 @@ class Pawn : public Figure
     Q_OBJECT
 public:
     Pawn(QPoint pos, bool isWhite, QVector<QVector<Block *> > &vecOfBlocks);
+public:
     QVector<Block*> getValidNeighbourPositions() override;
-    void getKnowledge(QVector<Block*>& blockVec) override;
+    QVector<Block*> getKnowledge(QVector<Block*> blockVec) override;
+    QVector<Block *> determinationOfPositionsDangerousForTheKing(QVector<Block *> blockVec) override;
 private:
     void dungeonAndDragons(int offseX, int offseY);
 protected:

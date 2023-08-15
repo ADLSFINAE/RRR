@@ -17,8 +17,11 @@ public:
     Figure(QPoint pos, bool isWhite, QVector<QVector<Block*>>& vecOfBlocks, QGraphicsPixmapItem* parent = nullptr);
 public:
     virtual QVector<Block*> getValidNeighbourPositions() = 0;
-    virtual void getKnowledge(QVector<Block*>& blockVec) = 0;
-
+    virtual QVector<Block*> getKnowledge(QVector<Block*> blockVec) = 0;
+    virtual QVector<Block *> determinationOfPositionsDangerousForTheKing(QVector<Block *> blockVec) = 0;
+public:
+    bool searchKing(bool isWhite, QVector<Block*>& blockVec);
+    bool calculateFiguresCount(QVector<Block*>& blockVec);
     void bubbleSortMinToMaxX(QVector<Block*>& vec);
     void bubbleSortMaxToMinX(QVector<Block*>& vec);
     void bubbleSortMinToMaxY(QVector<Block*>& vec);

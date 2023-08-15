@@ -24,9 +24,14 @@ QVector<Block *> Horse::getValidNeighbourPositions()
     return positions;
 }
 
-void Horse::getKnowledge(QVector<Block *>& blockVec)
+QVector<Block*> Horse::getKnowledge(QVector<Block *> blockVec)
 {
+    return blockVec;
+}
 
+QVector<Block *> Horse::determinationOfPositionsDangerousForTheKing(QVector<Block *> blockVec)
+{
+    return blockVec;
 }
 
 void Horse::mousePressEvent(QGraphicsSceneMouseEvent *event)

@@ -9,6 +9,44 @@ Figure::Figure(QPoint pos, bool isWhite, QVector<QVector<Block *> > &vecOfBlocks
     vecOfBlocks[this->getPosition().x()][this->getPosition().y()]->figureAboveBlockADD(this->isWhite);
 }
 
+bool Figure::searchKing(bool isWhite, QVector<Block *> &blockVec)
+{
+    if(isWhite){
+        for(int i = 0; i < blockVec.size(); i++){
+            if(blockVec[i]->getRealCoords() == vecBlackFigures[0]->getPosition()){
+                blockVec.erase(blockVec.begin() + i + 1, blockVec.end());
+                return true;
+            }
+        }
+        return false;
+    }
+    else{
+        for(int i = 0; i < blockVec.size(); i++){
+            if(blockVec[i]->getRealCoords() == vecWhiteFigures[0]->getPosition()){
+                blockVec.erase(blockVec.begin() + i + 1, blockVec.end());
+                return true;
+            }
+        }
+        return false;
+    }
+    return false;
+}
+
+bool Figure::calculateFiguresCount(QVector<Block *> &blockVec)
+{
+    int count = 0;
+    for(auto& elem : blockVec){
+        if(elem->getHavingFigure().first){
+            count++;
+            if(count == 3){
+                return false;
+            }
+        }
+    }
+
+    return true;
+}
+
 void Figure::bubbleSortMinToMaxX(QVector<Block *>& vec)
 {
     std::sort(vec.begin(), vec.end(),
@@ -92,7 +130,7 @@ void Figure::mousePressEvent(QGraphicsSceneMouseEvent *event)
     toClean.clear();
     this->setOffset(0, 0);
     Q_UNUSED(event);
-    toClean += getValidNeighbourPositions();
+    toClean += getKnowledge(getValidNeighbourPositions());
     for(auto& elem : toClean){
         elem->setBrushColor(Qt::yellow);
         if(elem->getHavingFigure().first && elem->getHavingFigure().second == this->isWhite)

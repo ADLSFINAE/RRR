@@ -28,16 +28,13 @@ QVector<Block *> Pawn::getValidNeighbourPositions()
         positions.push_back(vecOfBlocks[this->getPosition().x()][this->getPosition().y() + 1]);
       }
     }
-    qDebug()<<positions.size();
-    getKnowledge(positions);
-    qDebug()<<positions.size();
     return positions;
 }
 
-void Pawn::getKnowledge(QVector<Block *>& blockVec)
-{
-    QVector<Block*>forward;
-    QVector<Block*>back;
+QVector<Block*> Pawn::getKnowledge(QVector<Block *> blockVec)
+{ 
+    QVector<Block*> forward;
+    QVector<Block*> back;
 
     int current_figure_x = this->getPosition().x();
     int current_figure_y = this->getPosition().y();
@@ -59,6 +56,13 @@ void Pawn::getKnowledge(QVector<Block *>& blockVec)
     blockVec.clear();
     blockVec += forward;
     blockVec += back;
+
+    return blockVec;
+}
+
+QVector<Block *> Pawn::determinationOfPositionsDangerousForTheKing(QVector<Block *> blockVec)
+{
+    return pawnSoFunny;
 }
 
 void Pawn::dungeonAndDragons(int offseX, int offseY)
@@ -75,7 +79,7 @@ void Pawn::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
     pawnSoFunny.clear();
     toClean.clear();
-    toClean += getValidNeighbourPositions();
+    toClean += getKnowledge(getValidNeighbourPositions());
     for(auto& elem : toClean){
         elem->setBrushColor(Qt::yellow);
         if(elem->getHavingFigure().first && elem->getHavingFigure().second == this->isWhite)

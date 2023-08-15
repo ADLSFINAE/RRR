@@ -29,12 +29,10 @@ QVector<Block *> Queen::getValidNeighbourPositions()
             positions.push_back(vecOfBlocks[getPosition().x()][getPosition().y() + j]);
     }
 
-    getKnowledge(positions);
-
     return positions;
 }
 
-void Queen::getKnowledge(QVector<Block *>& blockVec)
+QVector<Block*> Queen::getKnowledge(QVector<Block *> blockVec)
 {
     QVector<Block*>forward;
     QVector<Block*>back;
@@ -111,6 +109,90 @@ void Queen::getKnowledge(QVector<Block *>& blockVec)
     blockVec += upper_right;
     blockVec += down_left;
     blockVec += down_right;
+
+    return blockVec;
+}
+
+QVector<Block *> Queen::determinationOfPositionsDangerousForTheKing(QVector<Block *> blockVec)
+{
+    QVector<Block*>forward;
+    QVector<Block*>back;
+    QVector<Block*>left;
+    QVector<Block*>right;
+    QVector<Block*>upper_left;
+    QVector<Block*>upper_right;
+    QVector<Block*>down_left;
+    QVector<Block*>down_right;
+
+    for(auto& elem : blockVec){
+#define ELEM_X elem->getRealCoords().x()
+#define ELEM_Y elem->getRealCoords().y()
+        if(ELEM_X == getPosition().x() && ELEM_Y >= getPosition().y()){
+            forward.push_back(elem);
+            continue;
+        }
+        if(ELEM_X == getPosition().x() && ELEM_Y <= getPosition().y()){
+            back.push_back(elem);
+            continue;
+        }
+        if(ELEM_X < getPosition().x() && ELEM_Y == getPosition().y()){
+            left.push_back(elem);
+            continue;
+        }
+        if(ELEM_X > getPosition().x() && ELEM_Y == getPosition().y()){
+            right.push_back(elem);
+            continue;
+        }
+        if(ELEM_X < getPosition().x() && ELEM_Y < getPosition().y()){
+            upper_left.push_back(elem);
+            continue;
+        }
+        if(ELEM_X > getPosition().x() && ELEM_Y < getPosition().y()){
+            upper_right.push_back(elem);
+            continue;
+        }
+        if(ELEM_X < getPosition().x() && ELEM_Y > getPosition().y()){
+            down_left.push_back(elem);
+            continue;
+        }
+        if(ELEM_X > getPosition().x() && ELEM_Y > getPosition().y()){
+            down_right.push_back(elem);
+            continue;
+        }
+    }
+
+
+    bubbleSortMaxToMinY(forward);
+    bubbleSortMinToMaxY(back);
+
+    bubbleSortMinToMaxX(left);
+    bubbleSortMaxToMinX(right);
+    bubbleSortMinToMaxX(upper_left);
+    bubbleSortMaxToMinX(upper_right);
+    bubbleSortMinToMaxX(down_left);
+    bubbleSortMaxToMinX(down_right);
+
+    if(isWhite){
+        if(searchKing(true, forward) && calculateFiguresCount(forward)){ return forward;};
+        if(searchKing(true, back) && calculateFiguresCount(back)){return back;};
+        if(searchKing(true, left) && calculateFiguresCount(left)){return left;};
+        if(searchKing(true, right) && calculateFiguresCount(right)){return right;};
+        if(searchKing(true, upper_left) && calculateFiguresCount(upper_left)){ return upper_left;};
+        if(searchKing(true, upper_right) && calculateFiguresCount(upper_right)){return upper_right;};
+        if(searchKing(true, down_left) && calculateFiguresCount(down_left)){return down_left;};
+        if(searchKing(true, down_right) && calculateFiguresCount(down_right)){return down_right;};
+    }
+    else{
+        if(searchKing(false, forward) && calculateFiguresCount(forward)){return forward;};
+        if(searchKing(false, back) && calculateFiguresCount(back)){return back;};
+        if(searchKing(false, left) && calculateFiguresCount(left)){return left;};
+        if(searchKing(false, right) && calculateFiguresCount(right)){return right;};
+        if(searchKing(false, upper_left) && calculateFiguresCount(upper_left)){ return upper_left;};
+        if(searchKing(false, upper_right) && calculateFiguresCount(upper_right)){return upper_right;};
+        if(searchKing(false, down_left) && calculateFiguresCount(down_left)){return down_left;};
+        if(searchKing(false, down_right) && calculateFiguresCount(down_right)){return down_right;};
+    }
+    return {};
 }
 
 void Queen::mousePressEvent(QGraphicsSceneMouseEvent *event)

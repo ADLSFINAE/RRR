@@ -1,8 +1,9 @@
 #include "FIGURES/king.h"
 
 King::King(QPoint pos, bool isWhite, QVector<QVector<Block *> > &vecOfBlocks)
-    :Figure(pos, isWhite, vecOfBlocks)
+    :Figure(pos, isWhite, vecOfBlocks), spawnPosition(pos)
 {
+    isMovedFromStartPosition = false;
     if(isWhite)
         this->setPixmap(QPixmap(pngWhiteKing));
     else
@@ -22,19 +23,51 @@ QVector<Block *> King::getValidNeighbourPositions()
     return positions;
 }
 
-void King::getKnowledge(QVector<Block *>& blockVec)
+QVector<Block*> King::getKnowledge(QVector<Block *> blockVec)
+{
+    return blockVec;
+}
+
+QVector<Block *> King::determinationOfPositionsDangerousForTheKing(QVector<Block *> blockVec)
 {
 
+}
+
+void King::swapKingAndRook(bool isWhite, QVector<Figure *> figVec)
+{
+    if(isWhite && this->getPosition() == QPoint(7, 4)){
+
+    }
 }
 
 void King::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
     Figure::mousePressEvent(event);
+    if(isWhite){
+        /*QVector<Block*> thisVecs = this->getValidNeighbourPositions();
+        thisVecs.push_back(vecOfBlocks[getPosition().x()][getPosition().y()]);
+        for(auto& fig : vecBlackFigures){
+            for(auto& thisblock : fig->getValidNeighbourPositions()){
+                for(auto& block : thisVecs){
+                    if(thisblock == block){
+                        thisblock->setBrushColor(Qt::red);
+                    }
+                }
+            }
+        }*/
+    }
+    else{
+
+    }
 }
 
 void King::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 {
     Figure::mouseReleaseEvent(event);
+
+    if(!isMovedFromStartPosition && this->getPosition() != spawnPosition){
+        isMovedFromStartPosition = true;
+    }
 }
 
 void King::mouseMoveEvent(QGraphicsSceneMouseEvent *event)

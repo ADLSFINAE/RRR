@@ -22,13 +22,12 @@ QVector<Block *> Rook::getValidNeighbourPositions()
             positions.push_back(vecOfBlocks[getPosition().x()][getPosition().y() + j]);
     }
 
-    getKnowledge(positions);
-
     return positions;
 }
 
-void Rook::getKnowledge(QVector<Block *>& blockVec)
+QVector<Block*> Rook::getKnowledge(QVector<Block *> blockVec)
 {
+
     QVector<Block*>forward;
     QVector<Block*>back;
     QVector<Block*>left;
@@ -64,6 +63,50 @@ void Rook::getKnowledge(QVector<Block *>& blockVec)
     blockVec += back;
     blockVec += left;
     blockVec += right;
+
+    return blockVec;
+}
+
+QVector<Block *> Rook::determinationOfPositionsDangerousForTheKing(QVector<Block *> blockVec)
+{
+    QVector<Block*>forward;
+    QVector<Block*>back;
+    QVector<Block*>left;
+    QVector<Block*>right;
+
+    int current_figure_x = this->getPosition().x();
+    int current_figure_y = this->getPosition().y();
+    for(auto& elem : blockVec){
+#define ELEM_X elem->getRealCoords().x()
+#define ELEM_Y elem->getRealCoords().y()
+        if(ELEM_X == current_figure_x && ELEM_Y >= current_figure_y)
+            forward.push_back(elem);
+        if(ELEM_X == current_figure_x && ELEM_Y <= current_figure_y)
+            back.push_back(elem);
+        if(ELEM_X < current_figure_x && ELEM_Y == current_figure_y)
+            left.push_back(elem);
+        if(ELEM_X > current_figure_x && ELEM_Y == current_figure_y)
+            right.push_back(elem);
+    }
+
+    bubbleSortMaxToMinY(forward);
+    bubbleSortMinToMaxY(back);
+    bubbleSortMinToMaxX(left);
+    bubbleSortMaxToMinX(right);
+    if(isWhite){
+        if(searchKing(true, forward) && calculateFiguresCount(forward)){ return forward;};
+        if(searchKing(true, back) && calculateFiguresCount(back)){return back;};
+        if(searchKing(true, left) && calculateFiguresCount(left)){return left;};
+        if(searchKing(true, right) && calculateFiguresCount(right)){return right;};
+    }
+    else{
+        if(searchKing(false, forward) && calculateFiguresCount(forward)){return forward;};
+        if(searchKing(false, back) && calculateFiguresCount(back)){return back;};
+        if(searchKing(false, left) && calculateFiguresCount(left)){return left;};
+        if(searchKing(false, right) && calculateFiguresCount(right)){return right;};
+    }
+
+    return {};
 }
 
 void Rook::mousePressEvent(QGraphicsSceneMouseEvent *event)
